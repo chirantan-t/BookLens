@@ -1,0 +1,110 @@
+{% extends "base.html" %} {% block title %}Add New Book - BookLens{% endblock %}
+{% block content %}
+<div
+  class="max-w-3xl mx-auto bg-white/80 rounded-2xl shadow-xl p-8 md:p-10 border border-white/50 backdrop-blur-sm"
+>
+  <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">
+    Add New Book
+  </h2>
+  <form
+    method="POST"
+    action="{{ url_for('books.add_book') }}"
+    class="space-y-6"
+  >
+    {{ form.csrf_token }}
+
+    <div>
+      {{ form.title.label(class="form-label") }} {{
+      form.title(class="form-input", placeholder="Enter book title") }} {% if
+      form.title.errors %}
+      <div class="invalid-feedback">
+        {% for error in form.title.errors %}
+        <span>{{ error }}</span>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+
+    <div>
+      {{ form.author_name.label(class="form-label") }} {{
+      form.author_name(class="form-input", placeholder="Enter author's name") }}
+      {% if form.author_name.errors %}
+      <div class="invalid-feedback">
+        {% for error in form.author_name.errors %}
+        <span>{{ error }}</span>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+
+    <div>
+      {{ form.isbn.label(class="form-label") }} {{ form.isbn(class="form-input",
+      placeholder="Optional: 13-digit ISBN (e.g., 978-1234567890)") }} {% if
+      form.isbn.errors %}
+      <div class="invalid-feedback">
+        {% for error in form.isbn.errors %}
+        <span>{{ error }}</span>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+
+    <div>
+      {{ form.publication_year.label(class="form-label") }} {{
+      form.publication_year(class="form-input", placeholder="Optional: Year of
+      publication") }} {% if form.publication_year.errors %}
+      <div class="invalid-feedback">
+        {% for error in form.publication_year.errors %}
+        <span>{{ error }}</span>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+
+    <div>
+      {{ form.genre.label(class="form-label") }} {{
+      form.genre(class="form-input", placeholder="Optional: e.g., Fantasy,
+      Sci-Fi, Thriller") }} {% if form.genre.errors %}
+      <div class="invalid-feedback">
+        {% for error in form.genre.errors %}
+        <span>{{ error }}</span>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+
+    <div>
+      {{ form.description.label(class="form-label") }} {{
+      form.description(class="form-input", rows=5, placeholder="Optional: A
+      brief description of the book") }} {% if form.description.errors %}
+      <div class="invalid-feedback">
+        {% for error in form.description.errors %}
+        <span>{{ error }}</span>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+
+    <div>
+      {{ form.cover_image_url.label(class="form-label") }} {{
+      form.cover_image_url(class="form-input", placeholder="Optional: Direct URL
+      to the book cover image") }} {% if form.cover_image_url.errors %}
+      <div class="invalid-feedback">
+        {% for error in form.cover_image_url.errors %}
+        <span>{{ error }}</span>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+
+    <div>{{ form.submit(class="form-submit w-full") }}</div>
+  </form>
+  <p class="mt-8 text-center text-gray-600">
+    <a
+      href="{{ url_for('books.books_index') }}"
+      class="text-red-600 hover:underline font-semibold"
+      >Back to Book List</a
+    >
+  </p>
+</div>
+{% endblock %}

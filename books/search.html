@@ -1,0 +1,83 @@
+{% extends "base.html" %} {% block title %}Search Books - BookLens{% endblock %}
+{% block content %}
+<div
+  class="w-full max-w-4xl mx-auto bg-white/80 rounded-2xl shadow-xl p-8 md:p-10 border border-white/50 backdrop-blur-sm"
+>
+  <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">
+    Discover Books
+  </h2>
+
+  <form
+    method="POST"
+    action="{{ url_for('books.search') }}"
+    class="mb-8 flex space-x-3"
+  >
+    {{ csrf_token }}
+    <input
+      type="text"
+      name="query"
+      class="form-input flex-grow"
+      placeholder="Search by title, author, or genre"
+    />
+    <button type="submit" class="form-submit">Search</button>
+  </form>
+
+  {% if books %}
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for book in books %}
+    <div
+      class="bg-gray-50 rounded-lg shadow-md overflow-hidden transform transition-transform duration-200 hover:scale-[1.02] hover:shadow-lg flex flex-col"
+    >
+      {% if book.cover_image_url %}
+      <img
+        src="{{ book.cover_image_url }}"
+        alt="{{ book.title }}"
+        class="w-full h-48 object-cover"
+      />
+      {% else %}
+      <div
+        class="w-full h-48 bg-gray-200 flex items-center justify-center text-gray-500 text-lg font-semibold"
+      >
+        No Cover Available
+      </div>
+      {% endif %}
+      <div class="p-5 flex flex-col flex-grow">
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">
+          {{ book.title }}
+        </h3>
+        <p class="text-gray-600 mb-1">
+          <strong>Author:</strong> {{ book.author_name }}
+        </p>
+        {% if book.publication_year %}
+        <p class="text-gray-600 mb-1">
+          <strong>Year:</strong> {{ book.publication_year }}
+        </p>
+        {% endif %} {% if book.genre %}
+        <p class="text-gray-600 mb-3">
+          <strong>Genre:</strong> {{ book.genre }}
+        </p>
+        {% endif %}
+        <div class="mt-auto">
+          <a
+            href="{{ url_for('books.book_detail', book_id=book.id) }}"
+            class="inline-block bg-gradient-to-r from-red-500 to-amber-500 text-white px-4 py-2 rounded-full text-sm font-medium hover:from-red-600 hover:to-amber-600 transition-colors"
+          >
+            View Details
+          </a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="text-center text-gray-600 text-lg">
+    No books found. Try a different search or be the first to
+    <a
+      href="{{ url_for('books.add_book') }}"
+      class="text-red-600 hover:underline"
+      >add a new book</a
+    >!
+  </p>
+  {% endif %}
+</div>
+{% endblock %}

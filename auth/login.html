@@ -1,0 +1,47 @@
+{% extends "base.html" %} {% block title %}Login - BookLens{% endblock %} {%
+block content %}
+<div
+  class="max-w-xl mx-auto bg-white/80 rounded-2xl shadow-xl p-8 md:p-10 border border-white/50 backdrop-blur-sm"
+>
+  <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">
+    Login to BookLens
+  </h2>
+  <form method="POST" action="{{ url_for('auth.login') }}" class="space-y-6">
+    {{ form.csrf_token }}
+
+    <div>
+      {{ form.email.label(class="form-label") }} {{
+      form.email(class="form-input", placeholder="Enter your email address") }}
+      {% if form.email.errors %}
+      <div class="invalid-feedback">
+        {% for error in form.email.errors %}
+        <span>{{ error }}</span>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+
+    <div>
+      {{ form.password.label(class="form-label") }} {{
+      form.password(class="form-input", placeholder="Enter your password") }} {%
+      if form.password.errors %}
+      <div class="invalid-feedback">
+        {% for error in form.password.errors %}
+        <span>{{ error }}</span>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+
+    <div>{{ form.submit(class="form-submit w-full") }}</div>
+  </form>
+  <p class="mt-8 text-center text-gray-600">
+    Don't have an account?
+    <a
+      href="{{ url_for('auth.register') }}"
+      class="text-red-600 hover:underline font-semibold"
+      >Register here</a
+    >
+  </p>
+</div>
+{% endblock %}
