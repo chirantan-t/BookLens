@@ -81,7 +81,8 @@ endblock %} {% block content %}
           </p>
           <p class="text-sm text-gray-600">
             Rated {{ review.rating }}/5 stars on {{
-            review.created_on.strftime('%Y-%m-%d') }}
+            review.date_posted.strftime('%Y-%m-%d') }} {# Confirmed: date_posted
+            is correct here #}
           </p>
         </div>
       </div>
@@ -89,6 +90,7 @@ endblock %} {% block content %}
       {% if current_user.is_authenticated and review.reviewer_id ==
       current_user.id %}
       <div class="flex space-x-3">
+        {# Corrected URL for editing a review #}
         <a
           href="{{ url_for('review.edit_review', review_id=review.id) }}"
           class="inline-flex items-center justify-center bg-yellow-500 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-yellow-600 transition-colors"
@@ -100,7 +102,8 @@ endblock %} {% block content %}
           method="POST"
           class="inline-block"
         >
-          {{ csrf_token }}
+          {{ form.csrf_token }} {# CORRECTED: Changed from {{ csrf_token() }} to
+          {{ form.csrf_token }} #}
           <button
             type="submit"
             class="inline-flex items-center justify-center bg-red-500 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-red-600 transition-colors"

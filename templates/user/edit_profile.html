@@ -1,0 +1,94 @@
+{% extends "base.html" %} {% block title %}{{ title }} - BookLens{% endblock %}
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+  <div
+    class="relative bg-white/80 rounded-3xl shadow-2xl p-8 md:p-10 border border-white/50 backdrop-blur-sm max-w-md mx-auto overflow-hidden animate-fade-in"
+    {#
+    Added
+    animate-fade-in
+    #}
+    style="animation-duration: 0.5s"
+  >
+    {# Background overlay for visual flair #}
+    <div
+      class="absolute inset-0 bg-gradient-to-br from-purple-100 to-pink-100 opacity-75 rounded-3xl"
+    ></div>
+    <div
+      class="absolute inset-0 opacity-20 bg-repeat"
+      style="
+        background-image: url('https://www.transparenttextures.com/patterns/fabric-of-squares.png');
+        background-size: 100px;
+      "
+    ></div>
+
+    <div class="relative z-10">
+      {# Ensure content is above background layers #}
+      <h2
+        class="text-4xl font-extrabold text-gray-900 mb-8 text-center tracking-tight"
+      >
+        Edit Your Profile
+      </h2>
+      <form method="POST" action="{{ url_for('user.edit_profile') }}">
+        {{ form.csrf_token }}
+
+        <div class="mb-5">
+          {{ form.username.label(class="block text-gray-700 text-sm
+          font-semibold mb-2") }} {{ form.username(class="block w-full px-4 py-2
+          bg-gray-50 border border-gray-300 rounded-lg text-gray-800
+          leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500
+          focus:border-transparent transition duration-200 ease-in-out
+          placeholder-gray-400", placeholder="Your Username") }} {% for error in
+          form.username.errors %}
+          <p class="text-red-600 text-sm mt-1">{{ error }}</p>
+          {% endfor %}
+        </div>
+
+        <div class="mb-7">
+          {{ form.email.label(class="block text-gray-700 text-sm font-semibold
+          mb-2") }} {{ form.email(class="block w-full px-4 py-2 bg-gray-50
+          border border-gray-300 rounded-lg text-gray-800 leading-tight
+          focus:outline-none focus:ring-2 focus:ring-blue-500
+          focus:border-transparent transition duration-200 ease-in-out
+          placeholder-gray-400", placeholder="Your Email") }} {% for error in
+          form.email.errors %}
+          <p class="text-red-600 text-sm mt-1">{{ error }}</p>
+          {% endfor %}
+        </div>
+
+        <div class="flex items-center justify-between mt-8">
+          {{ form.submit(class="bg-gradient-to-r from-blue-600 to-indigo-600
+          hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-3 px-6
+          rounded-full shadow-lg transition transform hover:scale-105
+          focus:outline-none focus:ring-2 focus:ring-blue-500
+          focus:ring-offset-2 cursor-pointer") }}
+          <a
+            href="{{ url_for('user.profile') }}"
+            class="inline-block align-baseline font-semibold text-gray-600 hover:text-gray-900 transition duration-200 ease-in-out hover:underline"
+          >
+            Cancel
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %} {# Add basic CSS for fade-in animation directly in the template
+for quick testing #} {# For production, it's better to put this in your main CSS
+file #} {% block extra_css %}
+<style>
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .animate-fade-in {
+    animation-name: fade-in;
+    animation-fill-mode: forwards;
+  }
+</style>
+{% endblock %}

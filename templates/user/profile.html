@@ -30,6 +30,17 @@
       <p class="text-sm md:text-base opacity-80 mt-2">
         Member Since: {{ user.registered_on.strftime('%Y-%m-%d') }}
       </p>
+
+      {# ADD THIS NEW BUTTON #}
+      <div class="mt-6">
+        <a
+          href="{{ url_for('user.edit_profile') }}"
+          class="inline-flex items-center justify-center bg-white text-pink-600 px-6 py-3 rounded-full text-lg font-semibold shadow-md hover:bg-gray-100 transition-colors"
+        >
+          <i class="fas fa-user-edit mr-2"></i> Edit Profile
+        </a>
+      </div>
+      {# END NEW BUTTON #}
     </div>
   </div>
 
@@ -70,7 +81,8 @@
             >
           </div>
           <p class="text-sm text-gray-600 mb-3">
-            Reviewed on {{ review.created_on.strftime('%Y-%m-%d') }}
+            Reviewed on {{ review.date_posted.strftime('%Y-%m-%d') }} {#
+            CHANGED: From review.created_on to review.date_posted #}
           </p>
           <p class="text-gray-700 leading-relaxed text-base">
             {{ review.comment if review.comment else 'No comment provided for

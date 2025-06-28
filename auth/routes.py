@@ -16,6 +16,6 @@ def login():
 @auth_bp.route('/profile')
 def profile():
     """Renders the user profile page."""
-    return render_template('auth/profile.html') 
+    return render_template('user/profile.html') 
 
 # Add other auth-related routes here (e.g., /logout, /forgot_password)

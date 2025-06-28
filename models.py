@@ -1,16 +1,16 @@
 from datetime import datetime
 from extensions import db
 from flask_login import UserMixin
-from sqlalchemy.orm import relationship # Import relationship
-from werkzeug.security import generate_password_hash, check_password_hash # ADD THIS LINE
+from sqlalchemy.orm import relationship
+from werkzeug.security import generate_password_hash, check_password_hash
 
 class User(db.Model, UserMixin):
     """User model for authentication."""
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password_hash = db.Column(db.String(128), nullable=False) # Store hashed passwords
-    registered_on = db.Column(db.DateTime, nullable=False, default=datetime.utcnow) # Keep this from previous versions
+    password_hash = db.Column(db.String(128), nullable=False)
+    registered_on = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
     # Relationships
     books_authored = relationship('Book', back_populates='author', lazy=True, foreign_keys='Book.author_id')
@@ -23,7 +23,6 @@ class User(db.Model, UserMixin):
     def get_id(self):
         return str(self.id)
 
-    # ADD THESE TWO METHODS FOR PASSWORD HANDLING
     def set_password(self, password):
         """Hashes the password and sets it to password_hash."""
         self.password_hash = generate_password_hash(password)
@@ -37,9 +36,9 @@ class Book(db.Model):
     """Book model."""
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
-    author_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True) # Optional: if users can add books
-    author_name = db.Column(db.String(100), nullable=False) # For external authors
-    isbn = db.Column(db.String(13), unique=True, nullable=True) # ISBN-13
+    author_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+    author_name = db.Column(db.String(100), nullable=False)
+    isbn = db.Column(db.String(13), unique=True, nullable=True)
     publication_year = db.Column(db.Integer, nullable=True)
     genre = db.Column(db.String(50), nullable=True)
     description = db.Column(db.Text, nullable=True)
@@ -60,7 +59,7 @@ class Review(db.Model):
     reviewer_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     rating = db.Column(db.Integer, nullable=False) # 1-5 stars
     comment = db.Column(db.Text, nullable=True)
-    date_posted = db.Column(db.DateTime, default=datetime.utcnow)
+    date_posted = db.Column(db.DateTime, default=datetime.utcnow) # This is the column that exists.
 
     # Relationships
     book = relationship('Book', back_populates='reviews')

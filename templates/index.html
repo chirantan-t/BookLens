@@ -281,7 +281,7 @@
           >
           <span id="auth-links" class="flex space-x-8">
             <a
-              href="/auth/login"
+              href="{{ url_for('auth.login') }}"
               class="nav-link text-gray-700 hover:text-red-600 font-medium transition-all duration-200 transform hover:scale-105"
               >Login</a
             >
@@ -302,26 +302,26 @@
             >
               Browse Books
             </a>
+
             <a
-              href="/user/profile"
+              href="{{ url_for('user.profile') }}"
               class="nav-link text-gray-700 hover:text-red-600 font-medium transition-all duration-200 transform hover:scale-105"
             >
               My Reviews
             </a>
             <a
-              href="/review/add"
+              href="{{ url_for('books.add_book') }}" {# This is "Submit Review" #}
               class="nav-link text-gray-700 hover:text-red-600 font-medium transition-all duration-200 transform hover:scale-105"
+              >Add a Book</a
             >
-              Submit Review
-            </a>
             <a
-              href="/user/profile"
+              href="{{ url_for('user.profile') }}"
               class="nav-link text-gray-700 hover:text-red-600 font-medium transition-all duration-200 transform hover:scale-105"
             >
               Edit Profile
             </a>
             <a
-              href="/templates/index.html"
+              href="{{ url_for('auth.login') }}"
               id="logout-button"
               class="nav-link text-red-600 hover:text-red-800 font-bold transition-all duration-200 transform hover:scale-105 border border-red-400 px-3 py-1 rounded-full"
             >
@@ -393,7 +393,7 @@
 
         <div class="flex flex-col sm:flex-row gap-4 mb-16">
           <a
-            href="#featured-books"
+            href="/books/search"
             class="cta-button relative inline-flex items-center justify-center bg-gradient-to-r from-red-600 to-amber-600 text-white px-8 py-4 rounded-full text-lg font-semibold shadow-lg group overflow-hidden"
           >
             <span class="relative z-10">Explore Reviews</span>

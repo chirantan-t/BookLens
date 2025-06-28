@@ -342,7 +342,7 @@
     >
       <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
         <a
-          href="{{ url_for('main.index') }}"
+          href="{{ url_for('index') }}"
           class="text-2xl font-extrabold text-gray-800"
         >
           <span
@@ -355,22 +355,22 @@
           {% if current_user.is_authenticated %}
           {# Options for logged-in users #}
           <a
-            href="{{ url_for('books.search_books') }}" {# This is "Browse Books" #}
+            href="/books/search" {# This is "Browse Books" #}
             class="nav-link text-gray-700 hover:text-red-600 font-medium transition-all duration-200 transform hover:scale-105"
             >Browse Books</a
           >
           <a
-            href="{{ url_for('user.my_reviews') }}" {# This is "My Reviews" #}
+            href="/user/profile" {# This is "My Reviews" #}
             class="nav-link text-gray-700 hover:text-red-600 font-medium transition-all duration-200 transform hover:scale-105"
             >My Reviews</a
           >
           <a
-            href="{{ url_for('review.add_review') }}" {# This is "Submit Review" #}
+            href="{{ url_for('books.add_book') }}" {# This is "Submit Review" #}
             class="nav-link text-gray-700 hover:text-red-600 font-medium transition-all duration-200 transform hover:scale-105"
-            >Submit Review</a
+            >Add a Book</a
           >
           <a
-            href="{{ url_for('user.profile') }}" {# This is "Edit Profile" #}
+            href="/user/profile" {# This is "Edit Profile" #}
             class="nav-link text-gray-700 hover:text-red-600 font-medium transition-all duration-200 transform hover:scale-105"
             >Edit Profile</a
           >
@@ -382,17 +382,17 @@
           {% else %}
           {# Options for non-logged-in users (landing page specific) #}
           <a
-            href="{{ url_for('main.index') }}#features"
+            href="{{ url_for('index') }}#features"
             class="nav-link text-gray-700 hover:text-red-600 font-medium transition-all duration-200 transform hover:scale-105"
             >Features</a
           >
           <a
-            href="{{ url_for('main.index') }}#how-it-works"
+            href="{{ url_for('index') }}#how-it-works"
             class="nav-link text-gray-700 hover:text-red-600 font-medium transition-all duration-200 transform hover:scale-105"
             >How It Works</a
           >
           <a
-            href="{{ url_for('main.index') }}#testimonials"
+            href="{{ url_for('index') }}#testimonials"
             class="nav-link text-gray-700 hover:text-red-600 font-medium transition-all duration-200 transform hover:scale-105"
             >Testimonials</a
           >
