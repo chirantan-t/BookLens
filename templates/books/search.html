@@ -12,7 +12,11 @@
     action="{{ url_for('books.search') }}"
     class="mb-8 flex space-x-3"
   >
-    {{ csrf_token }}
+    {# The CSRF token needs to be in a hidden input field for the backend to
+    find it #}
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" /> {# <---
+    CORRECTED LINE #}
+
     <input
       type="text"
       name="query"
